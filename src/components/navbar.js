@@ -38,7 +38,6 @@ function dynamicProps(index) {
   return {
     id: `simple-tab-${index}`,
     'aria-controls': `simple-tabpanel-${index}`,
-    
   };
 }
 // ici on creer un objet js contenant du css qui sera appelé par chaque element
