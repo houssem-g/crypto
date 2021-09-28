@@ -27,7 +27,7 @@ def get_crypto_data():
             "price": crypto_data[val]["USD"]["PRICE"],
             "change_day": crypto_data[val]["USD"]["CHANGEPCT24HOUR"],
             "volume_day": crypto_data[val]["USD"]["TOTALVOLUME24H"],
-            "market_cap": crypto_data[val]["USD"]["MKTCAP"]
+            "market": crypto_data[val]["USD"]["MKTCAP"]
         })
 
     return data

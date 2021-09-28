@@ -8,35 +8,35 @@ const App = () => {
   const listCrypto = [
     {
       id: 1,
-      Nom: "Bitcoin BTC",
-      Prix: "45 322.20",
-      Changement: "1.93%",
-      Volume: "29.3 Md USD",
-      Market: "918 465 817 544"
+      name: "Bitcoin BTC",
+      price: "45 322.20",
+      change_day: "1.93%",
+      volume_day: "29.3 Md USD",
+      market: "918 465 817 544"
     },
     {
       id: 2,
-      Nom: "Ethereum ETH",
-      Prix: "3307.50",
-      Changement: "5.2%",
-      Volume: "18.3 Md USD",
-      Market: "18 465 817 544"
+      name: "Ethereum ETH",
+      price: "3307.50",
+      change_day: "5.2%",
+      volume_day: "18.3 Md USD",
+      market: "18 465 817 544"
     },
     {
       id: 3,
-      Nom: "Cardano ADA",
-      Prix: "2.20",
-      Changement: "3.45%",
-      Volume: "9.4 Md USD",
-      Market: "8 465 817 544"
+      name: "Cardano ADA",
+      price: "2.20",
+      change_day: "3.45%",
+      volume_day: "9.4 Md USD",
+      market: "8 465 817 544"
     },
     {
       id: 4,
-      Nom: "XRP XRP",
-      Prix: "1.20",
-      Changement: "0.93%",
-      Volume: "2.93 Md USD",
-      Market: "465 817 544"
+      name: "XRP XRP",
+      price: "1.20",
+      change_day: "0.93%",
+      volume_day: "2.93 Md USD",
+      market: "465 817 544"
     }
   ]
 
