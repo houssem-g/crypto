@@ -29,3 +29,4 @@ local_settings.py
 
 #DB
 db.sqlite3
+node_modules
