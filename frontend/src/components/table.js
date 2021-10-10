@@ -71,37 +71,37 @@ const headCells = [
     id: 'id',
     numeric: false,
     disablePadding: true,
-    label: 'Id',
+    label: '#',
   },
   {
-    id: 'Nom',
+    id: 'name',
     numeric: true,
     disablePadding: false,
-    label: 'Nom',
+    label: 'Name',
   },
   {
-    id: 'Prix',
+    id: 'price',
     numeric: true,
     disablePadding: false,
-    label: 'Prix',
+    label: 'Price',
   },
   {
-    id: 'Changement',
+    id: 'change_day',
     numeric: true,
     disablePadding: false,
-    label: 'changement (24h)',
+    label: 'Change (24h)',
   },
   {
-    id: 'Volume',
+    id: 'volume_day',
     numeric: true,
     disablePadding: false,
-    label: 'volume',
+    label: 'Volume (24h)',
   },
   {
-    id: 'Market',
+    id: 'market',
     numeric: true,
     disablePadding: false,
-    label: 'Market cap',
+    label: 'Market Cap',
   },
 ];
 
@@ -330,11 +330,11 @@ const EnhancedTable = ({data}) => {
                       >
                         {row.id}
                       </TableCell>
-                      <TableCell align="right">{row.Nom}</TableCell>
-                      <TableCell align="right">{row.Prix}</TableCell>
-                      <TableCell align="right">{row.Changement}</TableCell>
-                      <TableCell align="right">{row.Volume}</TableCell>
-                      <TableCell align="right">{row.Market}</TableCell>
+                      <TableCell align="right">{row.name}</TableCell>
+                      <TableCell align="right">{row.price}</TableCell>
+                      <TableCell align="right">{row.change_day}</TableCell>
+                      <TableCell align="right">{row.volume_day}</TableCell>
+                      <TableCell align="right">{row.market}</TableCell>
                     </TableRow>
                   );
                 })}
