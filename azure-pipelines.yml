@@ -44,6 +44,7 @@ stages:
           cd backend
           dir
     - script: |
+        cd backend
         python -m venv antenv
         source antenv/bin/activate
         python -m pip install --upgrade pip
