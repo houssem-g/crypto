@@ -37,7 +37,12 @@ stages:
       inputs:
         versionSpec: '$(pythonVersion)'
       displayName: 'Use Python $(pythonVersion)'
-
+    - task: CmdLine@2
+      inputs:
+        script: |
+          echo  $(projectRoot)
+          dir
+          dir subfoldername
     - script: |
         python -m venv antenv
         source antenv/bin/activate
