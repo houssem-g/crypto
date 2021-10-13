@@ -40,9 +40,8 @@ stages:
     - task: CmdLine@2
       inputs:
         script: |
-          echo  $(projectRoot)
+          echo  $(projectRoot)/backend
           dir
-          dir subfoldername
     - script: |
         python -m venv antenv
         source antenv/bin/activate
