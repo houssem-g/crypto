@@ -90,3 +90,10 @@ stages:
               azureSubscription: $(azureServiceConnectionId)
               appName: $(webAppName)
               package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
+          - task: CmdLine@2
+            displayName: 'test message'
+            inputs:
+              script: |
+                echo Write your commands here
+                
+                echo Hello world
