@@ -61,30 +61,30 @@ stages:
   displayName: 'Deploy Web App'
   dependsOn: Build
   condition: succeeded()
-jobs:
-- deployment: DeploymentJob
-pool:
-  vmImage: $(vmImageName)
-  environment: $(environmentName)
-  strategy:
-    runOnce:
-      deploy:
-        steps:
-        - task: UsePythonVersion@0
-          inputs:
-            versionSpec: '$(pythonVersion)'
-          displayName: 'Use Python version'
-        - task: AzureWebApp@1
-          displayName: 'Deploy Azure Web App : {{ webAppName }}'
-          inputs:
-            azureSubscription: $(azureServiceConnectionId)
-            appName: $(webAppName)
-            package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
-        - task: CmdLine@2
-          displayName: 'test message'
-          inputs:
-            script: |
-              echo Write your commands here
-              dir
-              echo Hello world
-          
+  jobs:
+  - deployment: DeploymentJob
+  pool:
+    vmImage: $(vmImageName)
+    environment: $(environmentName)
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: '$(pythonVersion)'
+            displayName: 'Use Python version'
+          - task: AzureWebApp@1
+            displayName: 'Deploy Azure Web App : {{ webAppName }}'
+            inputs:
+              azureSubscription: $(azureServiceConnectionId)
+              appName: $(webAppName)
+              package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
+          - task: CmdLine@2
+            displayName: 'test message'
+            inputs:
+              script: |
+                echo Write your commands here
+                dir
+                echo Hello world
+            
