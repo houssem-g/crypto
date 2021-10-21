@@ -58,14 +58,6 @@ stages:
     - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
       displayName: 'Upload package'
       artifact: drop
-    # - task: CopyFiles@2
-    #   inputs:
-    #     targetFolder: '$(Build.ArtifactStagingDirectory)'    
-
-    # - task: PublishBuildArtifacts@1    
-    #   displayName: 'Publish Artifact: drop'
-    #   inputs:
-    #     PathtoPublish: '$(build.artifactstagingdirectory)'
 - stage: Deploy
   displayName: 'Deploy Web App'
   dependsOn: Build
@@ -90,7 +82,7 @@ stages:
               azureSubscription: 'Azure subscription 1 (58991975-890a-4657-a859-c174b4c19cbe)'
               appType: 'webAppLinux'
               WebAppName: 'instStopRes01'
-              package: drop
+              package: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
               RuntimeStack: 'PYTHON|3.7'
               StartupCommand: 'python3.7 manage.py runserver'
           - task: CmdLine@2
