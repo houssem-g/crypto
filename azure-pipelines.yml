@@ -70,6 +70,12 @@ stages:
           Write-Host "$(Pipeline.Workspace)"
           Write-Host "$(System.ArtifactsDirectory)"
           Write-Host "$(Build.BuildId)"
+          dir "$(System.ArtifactsDirectory)"
+    - task: CmdLine@2
+      inputs:
+        script: |
+          cd $(Pipeline.Workspace)
+          dir
 - stage: Deploy
   displayName: 'Deploy Web App'
   dependsOn: Build
