@@ -74,7 +74,7 @@ stages:
     - task: CmdLine@2
       inputs:
         script: |
-          cd $(Pipeline.Workspace)
+          cd $(System.ArtifactsDirectory)
           dir
 - stage: Deploy
   displayName: 'Deploy Web App'
