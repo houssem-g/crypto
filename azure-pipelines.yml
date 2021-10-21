@@ -83,11 +83,11 @@ stages:
               targetType: Inline
               script: |
                 Write-Host "$(Build.BuildId)"
-                dir "$(Build.ArtifactStagingDirectory)"/a
-                dir "$(System.DefaultWorkingDirectory)"/b
-                dir "$(System.ArtifactsDirectory)"/drop
-                dir "$(Pipeline.Workspace)"/s
-                dir "$(System.ArtifactsDirectory)"/TestResults
+                dir "$(Build.ArtifactStagingDirectory)/a"
+                dir "$(System.DefaultWorkingDirectory)/b"
+                dir "$(System.ArtifactsDirectory)/drop"
+                dir "$(Pipeline.Workspace)/s"
+                dir "$(System.ArtifactsDirectory)/TestResults"
           - task: AzureWebApp@1
             displayName: 'Deploy Azure Web App : {{ webAppName }}'
             inputs:
