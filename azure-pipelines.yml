@@ -42,7 +42,6 @@ stages:
         python -m venv antenv
         source antenv/bin/activate
         python -m pip install --upgrade pip
-        pip install setup
         pip install -r requirements.txt
       workingDirectory: $(projectRoot)
       displayName: "Install requirements"
@@ -85,17 +84,17 @@ stages:
               script: |
                 Write-Host "$(Build.BuildId)"
                 dir "$(Build.ArtifactStagingDirectory)"
-                dir "$(System.DefaultWorkingDirectory)"
-                dir "$(System.ArtifactsDirectory)"
-                dir "$(Pipeline.Workspace)"
-                dir "$(System.ArtifactsDirectory)"
-                dir "$(System.ArtifactsDirectory)"
+                # dir "$(System.DefaultWorkingDirectory)"
+                # dir "$(System.ArtifactsDirectory)"
+                # dir "$(Pipeline.Workspace)"
+                # dir "$(System.ArtifactsDirectory)"
+                # dir "$(System.ArtifactsDirectory)"
           - task: AzureWebApp@1
             displayName: 'Deploy Azure Web App : {{ webAppName }}'
             inputs:
               azureSubscription: $(azureServiceConnectionId)
               appName: $(webAppName)
-              package: $(System.ArtifactsDirectory)/Application$(Build.BuildId).zip
+              package: $(System.ArtifactsDirectory)/drop/Application$(Build.BuildId).zip
           - task: CmdLine@2
             displayName: 'test message'
             inputs:
