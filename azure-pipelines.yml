@@ -114,7 +114,7 @@ stages:
             inputs:
               azureSubscription: $(azureServiceConnectionId)
               appName: $(webAppName)
-              package: $(System.ArtifactsDirectory)/drop/$(Build.BuildId)
+              package: $(Pipeline.Workspace)/drop/Application$(Build.BuildId).zip
           - task: CmdLine@2
             displayName: 'test message'
             inputs:
