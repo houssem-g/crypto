@@ -69,6 +69,7 @@ stages:
           Write-Host "$(System.ArtifactsDirectory)"
           Write-Host "$(Pipeline.Workspace)"
           Write-Host "$(System.ArtifactsDirectory)"
+          Write-Host "$(Build.BuildId)"
 - stage: Deploy
   displayName: 'Deploy Web App'
   dependsOn: Build
@@ -91,7 +92,7 @@ stages:
             inputs:
               azureSubscription: $(azureServiceConnectionId)
               appName: $(webAppName)
-              package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
+              package: $(Pipeline.Workspace)/a/$(Build.BuildId).zip
           - task: CmdLine@2
             displayName: 'test message'
             inputs:
