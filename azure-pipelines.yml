@@ -62,10 +62,10 @@ stages:
     #   inputs:
     #     targetFolder: '$(Build.ArtifactStagingDirectory)'    
 
-    - task: PublishBuildArtifacts@1    
-      displayName: 'Publish Artifact: drop'
-      inputs:
-        PathtoPublish: '$(build.artifactstagingdirectory)'
+    # - task: PublishBuildArtifacts@1    
+    #   displayName: 'Publish Artifact: drop'
+    #   inputs:
+    #     PathtoPublish: '$(build.artifactstagingdirectory)'
 - stage: Deploy
   displayName: 'Deploy Web App'
   dependsOn: Build
