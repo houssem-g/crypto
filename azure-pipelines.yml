@@ -77,17 +77,34 @@ stages:
             inputs:
               versionSpec: '$(pythonVersion)'
             displayName: 'Use Python version'
-          - task: PowerShell@2
-            displayName: 'Degug parameters'
+            
+            
+          - task: CmdLine@3
             inputs:
-              targetType: Inline
               script: |
-                Write-Host "$(Build.BuildId)"
-                dir "$(Build.ArtifactStagingDirectory)/a"
-                dir "$(System.DefaultWorkingDirectory)/b"
-                dir "$(System.ArtifactsDirectory)/drop"
-                dir "$(Pipeline.Workspace)/s"
-                dir "$(System.ArtifactsDirectory)/TestResults"
+                cd $(Build.ArtifactStagingDirectory)
+                dir
+          - task: CmdLine@4
+            inputs:
+              script: |
+                cd $(System.DefaultWorkingDirectory)
+                dir
+
+          - task: CmdLine@5
+            inputs:
+              script: |
+                cd $(Pipeline.Workspace)
+                dir
+          # - task: PowerShell@2
+          #   displayName: 'Degug parameters'
+          #   inputs:
+          #     targetType: Inline
+          #     script: |
+          #       Write-Host "$(Build.BuildId)"
+          #       dir "$(System.DefaultWorkingDirectory)"
+          #       dir "$(System.ArtifactsDirectory)"
+          #       dir "$(Pipeline.Workspace)"
+          #       dir "$(System.ArtifactsDirectory)"
           - task: AzureWebApp@1
             displayName: 'Deploy Azure Web App : {{ webAppName }}'
             inputs:
