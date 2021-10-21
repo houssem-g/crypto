@@ -83,7 +83,7 @@ stages:
               targetType: Inline
               script: |
                 Write-Host "$(Build.BuildId)"
-                dir "$(Build.ArtifactStagingDirectory)"/$(Build.BuildId)
+                dir "$(Build.ArtifactStagingDirectory)"
                 dir "$(System.DefaultWorkingDirectory)"
                 dir "$(System.ArtifactsDirectory)"
                 dir "$(Pipeline.Workspace)"
