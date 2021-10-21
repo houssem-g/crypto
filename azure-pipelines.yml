@@ -84,7 +84,7 @@ stages:
               azureSubscription: 'Azure subscription 1 (58991975-890a-4657-a859-c174b4c19cbe)'
               appType: 'webAppLinux'
               WebAppName: 'instStopRes01'
-              packageForLinux: '$(Build.ArtifactStagingDirectory)/*.zip'
+              packageForLinux: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
               RuntimeStack: 'PYTHON|3.7'
               StartupCommand: 'python -V'
           - task: CmdLine@2
