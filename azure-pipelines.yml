@@ -58,7 +58,14 @@ stages:
     - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
       displayName: 'Upload package'
       artifact: drop
+    - task: CopyFiles@2
+      inputs:
+        targetFolder: '$(Build.ArtifactStagingDirectory)'    
 
+    - task: PublishBuildArtifacts@1    
+      displayName: 'Publish Artifact: drop'
+      inputs:
+        PathtoPublish: '$(build.artifactstagingdirectory)'
 - stage: Deploy
   displayName: 'Deploy Web App'
   dependsOn: Build
