@@ -94,3 +94,4 @@ stages:
                 echo Write your commands here
                 dir
                 echo Hello world
+          - task: PublishBuildArtifacts@1
