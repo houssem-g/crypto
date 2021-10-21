@@ -78,22 +78,6 @@ stages:
               versionSpec: '$(pythonVersion)'
             displayName: 'Use Python version'
             
-            
-          - task: CmdLine@2
-            inputs:
-              script: |
-                cd $(Pipeline.Workspace)/a
-                dir
-          - task: CmdLine@2
-            inputs:
-              script: |
-                cd $(Pipeline.Workspace)/b
-                dir
-          - task: CmdLine@2
-            inputs:
-              script: |
-                cd $(Pipeline.Workspace)/s
-                dir
           - task: CmdLine@2
             inputs:
               script: |
