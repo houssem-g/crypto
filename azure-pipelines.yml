@@ -78,13 +78,15 @@ stages:
               versionSpec: '$(pythonVersion)'
             displayName: 'Use Python version'
 
-          - task: AzureWebApp@1
-            displayName: 'Deploy Azure Web App : '
+          - task: AzureRmWebAppDeployment@4
             inputs:
-              azureSubscription: $(azureServiceConnectionId)
-              appName: $(webAppName)
-              package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
-              deploymentMethod: auto
+              ConnectionType: 'AzureRM'
+              azureSubscription: 'Azure subscription 1 (58991975-890a-4657-a859-c174b4c19cbe)'
+              appType: 'webAppLinux'
+              WebAppName: 'instStopRes01'
+              packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+              RuntimeStack: 'PYTHON|3.7'
+              StartupCommand: 'python -V'
           - task: CmdLine@2
             displayName: 'test message'
             inputs:
