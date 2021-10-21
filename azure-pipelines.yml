@@ -98,7 +98,7 @@ stages:
             inputs:
               azureSubscription: $(azureServiceConnectionId)
               appName: $(webAppName)
-              package: $(Pipeline.Workspace)/Application$(Build.BuildId).zip
+              package: $(System.ArtifactsDirectory)/Application$(Build.BuildId).zip
           - task: CmdLine@2
             displayName: 'test message'
             inputs:
