@@ -37,12 +37,6 @@ stages:
       inputs:
         versionSpec: '$(pythonVersion)'
       displayName: 'Use Python $(pythonVersion)'
-    - task: CmdLine@2
-      inputs:
-        script: |
-          echo  $(projectRoot)
-          cd backend
-          dir
     - script: |
         cd backend
         python -m venv antenv
@@ -90,10 +84,11 @@ stages:
               azureSubscription: $(azureServiceConnectionId)
               appName: $(webAppName)
               package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
+              deploymentMethod: auto
           - task: CmdLine@2
             displayName: 'test message'
             inputs:
               script: |
                 echo Write your commands here
-                
+                dir
                 echo Hello world
