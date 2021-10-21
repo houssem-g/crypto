@@ -57,6 +57,18 @@ stages:
     - publish: $(Build.ArtifactStagingDirectory)/Application$(Build.BuildId).zip
       displayName: 'Upload package'
       artifact: drop
+    
+
+    - task: PowerShell@2
+      displayName: 'Degug parameters'
+      inputs:
+        targetType: Inline
+        script: |
+          Write-Host "$(Build.ArtifactStagingDirectory)"
+          Write-Host "$(System.DefaultWorkingDirectory)"
+          Write-Host "$(System.ArtifactsDirectory)"
+          Write-Host "$(Pipeline.Workspace)"
+          Write-Host "$(System.ArtifactsDirectory)"
 - stage: Deploy
   displayName: 'Deploy Web App'
   dependsOn: Build
