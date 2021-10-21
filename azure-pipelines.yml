@@ -79,18 +79,18 @@ stages:
             displayName: 'Use Python version'
             
             
-          - task: CmdLine@3
+          - task: CmdLine@2
             inputs:
               script: |
                 cd $(Build.ArtifactStagingDirectory)
                 dir
-          - task: CmdLine@4
+          - task: CmdLine@2
             inputs:
               script: |
                 cd $(System.DefaultWorkingDirectory)
                 dir
 
-          - task: CmdLine@5
+          - task: CmdLine@2
             inputs:
               script: |
                 cd $(Pipeline.Workspace)
