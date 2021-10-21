@@ -82,18 +82,22 @@ stages:
           - task: CmdLine@2
             inputs:
               script: |
-                cd $(Build.ArtifactStagingDirectory)
+                cd $(Pipeline.Workspace)/a
                 dir
           - task: CmdLine@2
             inputs:
               script: |
-                cd $(System.DefaultWorkingDirectory)
+                cd $(Pipeline.Workspace)/b
                 dir
-
           - task: CmdLine@2
             inputs:
               script: |
-                cd $(Pipeline.Workspace)
+                cd $(Pipeline.Workspace)/s
+                dir
+          - task: CmdLine@2
+            inputs:
+              script: |
+                cd $(Pipeline.Workspace)/drop
                 dir
           # - task: PowerShell@2
           #   displayName: 'Degug parameters'
