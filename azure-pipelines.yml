@@ -98,6 +98,34 @@ stages:
             inputs:
               azureSubscription: $(azureServiceConnectionId)
               appName: $(webAppName)
+              appSettings: |
+                [
+                  {
+                    "name": "ENABLE_ORYX_BUILD",
+                    "value": "true",
+                    "slotSetting": false
+                  },
+                  {
+                    "name": "FUNCTIONS_EXTENSION_VERSION",
+                    "value": "~3",
+                    "slotSetting": false
+                  },
+                  {
+                    "name": "FUNCTIONS_WORKER_RUNTIME",
+                    "value": "node",
+                    "slotSetting": false
+                  },
+                  {
+                    "name": "PLAYWRIGHT_BROWSERS_PATH",
+                    "value": "0",
+                    "slotSetting": false
+                  },
+                  {
+                    "name": "SCM_DO_BUILD_DURING_DEPLOYMENT",
+                    "value": "true",
+                    "slotSetting": false
+                  }
+                ]
               package: $(Pipeline.Workspace)/drop/Application$(Build.BuildId).zip
           - task: CmdLine@2
             displayName: 'test message'
