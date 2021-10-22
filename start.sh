@@ -11,6 +11,7 @@ python -m pip install --upgrade pip
 pip install -r requirements.txt
 cd getData
 ls
-exec python manage.py migrate \
-    python manage.py runserver
+exec python manage.py migrate
+quit()
+exec python manage.py runserver
  
