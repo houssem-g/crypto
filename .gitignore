@@ -30,3 +30,5 @@ local_settings.py
 #DB
 db.sqlite3
 node_modules
+
+# az webapp up --resource-group plateformTrading --location centralus --plan ASP-plateformTrading-b690 --sku B1 --name django
