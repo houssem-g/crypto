@@ -98,19 +98,6 @@ stages:
             inputs:
               azureSubscription: $(azureServiceConnectionId)
               appName: $(webAppName)
-              appSettings: |
-                [
-                  {
-                    "name": "ENABLE_ORYX_BUILD",
-                    "value": "true",
-                    "slotSetting": false
-                  },
-                  {
-                    "name": "SCM_DO_BUILD_DURING_DEPLOYMENT",
-                    "value": "true",
-                    "slotSetting": false
-                  }
-                ]
               package: $(Pipeline.Workspace)/drop/Application$(Build.BuildId).zip
           - task: CmdLine@2
             displayName: 'test message'
