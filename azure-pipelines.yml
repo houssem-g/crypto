@@ -37,14 +37,19 @@ stages:
       inputs:
         versionSpec: '$(pythonVersion)'
       displayName: 'Use Python $(pythonVersion)'
-    - script: |
-        cd backend
-        python -m venv antenv
-        source antenv/bin/activate
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+    - script: pip install --upgrade pip
+      displayName: 'Upgrade pip'
       workingDirectory: $(projectRoot)
-      displayName: "Install requirements"
+
+    - script: pip install pipenv
+      displayName: 'Install pipenv'
+
+    - script: python -m pipenv install --dev
+      displayName: 'Install Python dependencies'
+
+    - script: python -m pipenv run pip freeze > requirements.txt
+      displayName: 'Generate requirements.txt'
+
     - task: ArchiveFiles@2
       inputs:
         rootFolderOrFile: '$(Build.SourcesDirectory)'
@@ -52,8 +57,8 @@ stages:
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/Application$(Build.BuildId).zip'
         replaceExistingArchive: true
-        verbose: # (no value); this input is optional
-    - publish: $(Build.ArtifactStagingDirectory)/Application$(Build.BuildId).zip
+        
+    - upload: $(Build.ArtifactStagingDirectory)/Application$(Build.BuildId).zip
       displayName: 'Upload package'
       artifact: drop
     
