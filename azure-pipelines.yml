@@ -24,7 +24,14 @@ variables:
 
   # Python version: 3.7
   pythonVersion: '3.7'
-
+  scm-do-build-during-deployment:
+    description: ""
+    required: true
+    default: 'true'
+  enable-oryx-build:
+    description: ""
+    required: true
+    default: 'true'
 stages:
 - stage: Build
   displayName: Build stage
