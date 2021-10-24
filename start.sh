@@ -11,4 +11,3 @@ source antenv/bin/activate
 cd getData
 ls
 exec python manage.py runserve
-
