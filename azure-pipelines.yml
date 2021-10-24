@@ -99,6 +99,8 @@ stages:
               azureSubscription: $(azureServiceConnectionId)
               appName: $(webAppName)
               package: $(Pipeline.Workspace)/drop/Application$(Build.BuildId).zip
+              startUpCommand: 'python backend/getData/manage.py runserver'
+
           - task: CmdLine@2
             displayName: 'test message'
             inputs:
