@@ -7,9 +7,8 @@ python --version
 cd backend
 python -m venv antenv
 source antenv/bin/activate
-python -m pip install --upgrade pip
-pip install -r requirements.txt
+
 cd getData
 ls
-python manage.py migrate && python manage.py runserve
+exec python manage.py runserve
 
