@@ -33,4 +33,7 @@ local_settings.py
 db.sqlite3
 node_modules
 
-# az webapp up --resource-group plateformTrading --location centralus --plan ASP-plateformTrading-b690 --sku B1 --name django
+
+# https://github.com/cljung/py-rest-api/blob/master/deploy/az-webapp-create-py.sh
+# https://blog.redbaronofazure.com/?p=7667
+# https://docs.microsoft.com/en-us/answers/questions/192218/deploy-azure-function-with-pipeline-and-build-on-s.html
