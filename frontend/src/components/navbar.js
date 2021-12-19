@@ -7,6 +7,10 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import * as All from '../navigation/constants';
+import {useHistory, useLocation} from 'react-router-dom'
+import { useState, useEffect } from 'react';
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -54,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
     marginRight: theme.spacing(2),
     backgroundColor: "#3f51b5",
+    marginLeft: "2vh"
   },
   parentDiv: {
     alignItems: "center",
@@ -81,26 +86,61 @@ const styles= {
     },
   };
 
+const dict_paths = {
+  "/allCrypto/" : 0,
+  "/analysis/": 1,
+  "/scoring/": 2,
+  "/": 0,
+};
+
+
+// const FinPath = (myPath) => {
+//   myPath = myPath.replace(/\s/g, '')
+//   return dict_paths[myPath]
+// }
+
 // Navbar is the exported component
 const Navbar = ({titles}) => {
+  
+  const history = useHistory();
+  
+  const goTo = (path) => {
+      path = path.split(":")[0] || path
+      
+      history.push(path || All.ROOT);
+  }
+
     // useStyles: it is a hook, which allows you to consume the styles of your application in a simple, clean, and efficient way
   const classes = useStyles();
   // useState est un hook intégré qui peut être importé depuis le package react. Il vous permet d'ajouter un état à vos composants fonctionnels
   // setValue est une méthode qui sera appeler pour le mettre à jout
   // que ce qu'un hook : https://fr.reactjs.org/docs/hooks-state.html
-  const [value, setValue] = React.useState(0);
+  
+
+  const [value, setValue] = useState(0);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  let location = useLocation()
+  location = location.pathname.split("?")[0] || location.pathname 
+  useEffect(() => {
+    if (dict_paths[location] !== "/allCrypto") {
+      setValue(dict_paths[location]);
+    }
+    }, [dict_paths[location]]);
+
   const listOfTab = []
-  {titles.forEach((val, ind) => {
+  titles.forEach((val, ind) => {
+    listOfTab.push(<Tab label={val} {...dynamicProps(ind)} onClick={()=>goTo(All[val])}/>)
+    }
+    )
+  
     
-    listOfTab.push(<Tab label={val} {...dynamicProps(ind)}/>)
-    })}
   return (
     <div className={classes.parentDiv}>
         <div className={classes.logo}>
-           <h2>Coindinar</h2> 
+           <h2>COINSTATS</h2> 
         </div> 
         <div className={classes.root}>
         <AppBar position="static" style={styles.hideBorder}>
