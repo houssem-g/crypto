@@ -26,6 +26,7 @@ yarn-error.log*
 #python
 __pycache__
 local_settings.py
+/backend/getData/constantes.py
 
 #DB
 db.sqlite3

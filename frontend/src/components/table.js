@@ -22,6 +22,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import { makeStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 
 
 const useStyles = makeStyles(() => ({
@@ -71,7 +72,7 @@ const headCells = [
     id: 'id',
     numeric: false,
     disablePadding: true,
-    label: '#',
+    label: '# Id',
   },
   {
     id: 'name',
@@ -86,19 +87,19 @@ const headCells = [
     label: 'Price',
   },
   {
-    id: 'change_day',
+    id: 'priceChange1d',
     numeric: true,
     disablePadding: false,
     label: 'Change (24h)',
   },
   {
-    id: 'volume_day',
+    id: 'volume',
     numeric: true,
     disablePadding: false,
     label: 'Volume (24h)',
   },
   {
-    id: 'market',
+    id: 'marketCap',
     numeric: true,
     disablePadding: false,
     label: 'Market Cap',
@@ -106,6 +107,7 @@ const headCells = [
 ];
 
 function EnhancedTableHead(props) {
+  
   const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } =
     props;
   const createSortHandler = (property) => (event) => {
@@ -122,7 +124,7 @@ function EnhancedTableHead(props) {
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
             inputProps={{
-              'aria-label': 'select all desserts',
+              'aria-label': 'select all crypto',
             }}
           />
         </TableCell>
@@ -193,8 +195,9 @@ const EnhancedTableToolbar = (props) => {
         >
           Crypto currencies
         </Typography>
+        
       )}
-
+      
       {numSelected > 0 ? (
         <Tooltip title="Delete">
           <IconButton>
@@ -208,6 +211,7 @@ const EnhancedTableToolbar = (props) => {
           </IconButton>
         </Tooltip>
       )}
+      
     </Toolbar>
   );
 };
@@ -217,6 +221,7 @@ EnhancedTableToolbar.propTypes = {
 };
 
 const EnhancedTable = ({data}) => {
+  data = data.slice(0,100)
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('Nom');
   const [selected, setSelected] = React.useState([]);
@@ -229,15 +234,17 @@ const EnhancedTable = ({data}) => {
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
-
   const handleSelectAllClick = (event) => {
+    
     if (event.target.checked) {
       const newSelecteds = data.map((n) => n.name);
       setSelected(newSelecteds);
+      // isItemSelected = true
       return;
     }
     setSelected([]);
   };
+  
 
   const handleClick = (event, name) => {
     const selectedIndex = selected.indexOf(name);
@@ -277,6 +284,10 @@ const EnhancedTable = ({data}) => {
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
+
+  
+
+  // this is what we are gonna display  
   return (
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
@@ -301,40 +312,34 @@ const EnhancedTable = ({data}) => {
               {stableSort(data, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.id);
+                  let isItemSelected = isSelected(row.name);
+                  // if ({handleSelectAllClick}.length) {
+                  //   isItemSelected = true
+                  // }
                   const labelId = `enhanced-table-checkbox-${index}`;
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.id)}
+                      onClick={(event) => handleClick(event, row.name)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.id}
+                      key={row.name}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
                           color="primary"
                           checked={isItemSelected}
-                          inputProps={{
-                            'aria-labelledby': labelId,
-                          }}
+                          inputProps={{'aria-labelledby': labelId,}}
                         />
                       </TableCell>
-                      <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        padding="none"
-                      >
-                        {row.id}
-                      </TableCell>
-                      <TableCell align="right">{row.name}</TableCell>
+                      <TableCell component="th" id={labelId} scope="row" padding="none">{row.id}</TableCell>
+                      <TableCell align="right"><Link to={{ pathname: `/analysis/?currency=${row.symbol}` }}>{row.name}</Link></TableCell>
                       <TableCell align="right">{row.price}</TableCell>
-                      <TableCell align="right">{row.change_day}</TableCell>
-                      <TableCell align="right">{row.volume_day}</TableCell>
-                      <TableCell align="right">{row.market}</TableCell>
+                      <TableCell align="right">{row.priceChange1d}</TableCell>
+                      <TableCell align="right">{row.volume}</TableCell>
+                      <TableCell align="right">{row.marketCap}</TableCell>
                     </TableRow>
                   );
                 })}
