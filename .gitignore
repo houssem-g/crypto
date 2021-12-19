@@ -27,6 +27,7 @@ yarn-error.log*
 __pycache__
 local_settings.py
 /backend/getData/constantes.py
+/backend/getData/getCrypto/clean_twitter.py
 
 #DB
 db.sqlite3
