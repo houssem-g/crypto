@@ -83,6 +83,7 @@ const styles= {
     hideBorder: {
       boxShadow: "none",
       marginLeft: "20vh",
+      width: "40vw",
     },
   };
 
@@ -123,19 +124,20 @@ const Navbar = ({titles}) => {
     setValue(newValue);
   };
   let location = useLocation()
-  location = location.pathname.split("?")[0] || location.pathname 
+  location = location.pathname.split("?")[0] || location.pathname
+  let curPath = dict_paths[location]
   useEffect(() => {
-    if (dict_paths[location] !== "/allCrypto") {
+    
+    if (curPath!== "/allCrypto") {
       setValue(dict_paths[location]);
     }
-    }, [dict_paths[location]]);
+    }, [curPath, location]);
 
   const listOfTab = []
   titles.forEach((val, ind) => {
     listOfTab.push(<Tab label={val} {...dynamicProps(ind)} onClick={()=>goTo(All[val])}/>)
     }
-    )
-  
+  )
     
   return (
     <div className={classes.parentDiv}>

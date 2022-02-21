@@ -1,22 +1,19 @@
 import React from "react";
 import Navbar from '../../components/navbar';
-// import InputSearch from '../../components/inputSearch'
+import InfoGeneral from '../../components/infoGeneral';
 import TradingViewWidget, { Themes } from 'react-tradingview-widget';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-// import Button from '@mui/material/Button';
 import { useState, useEffect } from 'react';
-import useAxios from '../../api/axiosCRUD';
+import GetData from '../../api/axiosCRUD';
+import useAxiosToGetHolders from '../../api/getHolders';
 import Box from '@mui/material/Box';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import Footer from "../../components/footer";
 
+// import InputSearch from '../../components/inputSearch'
 
 export const AnalysisView = () => {
-  
-  
-  let loc = useLocation()
-  
-  // console.log("loc : ", loc)
 
   const styles= {
     containersFlex: {
@@ -26,17 +23,28 @@ export const AnalysisView = () => {
       marginTop: "2vh",
     },
     containerGeneral: {
-      width: "50vh",
-      height: "50vh",
-      backgroundColor: "#dcdcdc	",
+      width: "17vw",
+      height: "auto",
+      backgroundColor: "ghostwhite",
       border: "2px solid",
+      marginTop: "1vh",
+      marginLeft: "4.5vh",
+    },
+    infoGTitle: {
+      textAlign: "center",
+      backgroundColor: "mediumaquamarine",
+      height: "9vh",
+      display: "flow-root",
+      width: "22vw",
+      
     },
     containerChart: {
-      width: "150vh",
+      width: "75vw",
       height: "50vh",
       backgroundColor: "#dcdcdc",
       border: "2px solid",
-      marginLeft: "2px",
+      marginLeft: "1vh",
+      
     },
     containerSearchText: {
       marginTop: "2vh",
@@ -47,44 +55,64 @@ export const AnalysisView = () => {
       marginTop: "1.2vh",
       marginLeft: "1vh"
     },
+    containerFooter: {
+      marginTop: "30vh"
+    }
+
   };
   let parameters = useParams()
-  parameters = parameters.currency ? parameters.currency.split("=").pop() +"USD" : "ETHUSD"
-  const [state, setState] = React.useState({
-    value: parameters || 'ETHUSD',
+  const {listCoins} = GetData({
+    method: 'get',
+    url: parameters.currency ? `analysis/?currency=${parameters.currency}` : '/analysis/'
+  })
+ 
+  
+  const [allCoins, setAllCoins] = useState([]);
+  
+  // ici on écoute listCoins c'est pourquoi on l'ajoute entre [] à la fin du use effect
+  useEffect(() => {
+    if(listCoins){
+      setAllCoins(listCoins)
+    }
+    return () => {}
+  }, [listCoins]);
+  
+  
+  let oneCrypto = undefined
+  let sigle = "ETH"
+  let pairMoney = ""
+  if (parameters.currency) {
+    sigle = parameters.currency.split("=").pop().toUpperCase()
+    pairMoney = sigle +"USD"
+    
+  }
+  const [state, setState] = useState({
+    value: pairMoney || "ETHUSD",
     show:'ETHUSD'
   });
+  oneCrypto =  allCoins.filter((el)=> el["symbol"] === state.value.slice(0,-3))[0]
+  
+  
 
-  const { listCoins} = useAxios({
-    method: 'get',
-    url: '/'
-  });
-
-  const [allCoins, setAllCoins] = useState([]);
-  useEffect(() => {
-    if (listCoins !== null) {
-      setAllCoins(listCoins);
-    }
-  }, [listCoins]);
-
-
+  // const { response } = useAxiosToGetHolders({
+  //   method: 'get',
+  //   url: `infoTrx/?address=${oneCrypto.walletAddress }`
+  // });
 
   return (
     <div>
       <Navbar titles = {["Cryptomonnaies", "Analysis", "Scoring"]}/>
       <div style={styles.containersFlex}>
         <div style={styles.containerSearchText}>Search</div>
-        {/* <InputSearch data = {listCoins} tradingViewSearch = {state.value}/> */}
         <Autocomplete
-          
           onChange={
           (event, newValue) => {
+              event.preventDefault();
               if (newValue && newValue.name !== null && newValue.name !== ""){
                   let arrValue = newValue.name.split(" ")
                   newValue = arrValue[arrValue.length - 1]
                   setState({value: newValue.toUpperCase() + "USD"});
               }
-          
           }}
           id="search_field"
           options={allCoins}
@@ -105,10 +133,20 @@ export const AnalysisView = () => {
       />
       </div>
       <div style={styles.containersFlex}>
-        <div style={styles.containerGeneral}></div>
+        <div>
+          <div style= {styles.infoGTitle}>
+            <h2>Token Overview</h2>
+          </div>
+          <div style={styles.containerGeneral}>
+            <InfoGeneral {...oneCrypto}/>
+          </div>
+        </div>
         <div style={styles.containerChart}>
         <TradingViewWidget symbol={state.value} theme={Themes.DARK} locale="fr" autosize/>
         </div>
+      </div>
+      <div style={styles.containerFooter}>
+        <Footer/>
       </div>
     </div>
   );

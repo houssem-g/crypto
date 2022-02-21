@@ -21,13 +21,13 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from sklearn.feature_extraction.text import CountVectorizer
 from IPython.display import display
 import unicodedata
-import contantes
+import constants
 # nltk.download()
 # les credentials à cacher avant de pousser
-consumerKey  = contantes.consumerKey
-consumerSecret  = contantes.consumerSecret
-accessToken  = contantes.accessToken
-accessTokenSecret = contantes.accessTokenSecret
+consumerKey  = constants.consumerKey
+consumerSecret  = constants.consumerSecret
+accessToken  = constants.accessToken
+accessTokenSecret = constants.accessTokenSecret
 
 # authentification
 auth = tweepy.OAuthHandler(consumerKey, consumerSecret)

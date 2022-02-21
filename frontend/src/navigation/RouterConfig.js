@@ -14,6 +14,8 @@ export const RouterConfig = () => {
         <Route exact path={Cryptomonnaies} component={Home} />
         <Route exact path={Analysis} component={Analyse} />
         <Route exact path={Scoring} component={Analyse} />
+        <Route exact path="/" component={Home} />
+        <Route exact path="/about" component={Home} />
         {/* <Route exact path={PAGE1} component={Page1} /> */}
 
         {/* List all private/auth routes here */}

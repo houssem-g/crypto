@@ -9,11 +9,12 @@ import { useState, useEffect } from 'react';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
+import Footer from "../../components/footer";
 
 const HomeView = props => {
     const styles= {
         containerSearchField: {
-          marginLeft: "158vh",
+          marginLeft: "157vh",
           display: "flex",
         },
         textSearch: {
@@ -24,14 +25,17 @@ const HomeView = props => {
             marginLeft: "5vh",
             marginBottom: "1vh"
         },
+        containerPage: {
+            minHeight: "65vh"
+        }
       };
     const { listCoins, response, loading, error } = useAxios({
         method: 'get',
-        url: '/'
+        url: '/allCrypto/'
     });
     const [data, setData] = useState([]);
     const [filteredData, setFilteredData] = useState(data);
-    const [selectedValue, setSelectedValue] = useState('');
+    // const [selectedValue, setSelectedValue] = useState('');
     useEffect(() => {
     if (response !== null) {
         setFilteredData(response);
@@ -109,8 +113,10 @@ const HomeView = props => {
                     />
                 </div>
             </div>
-            <EnhancedTable data = {filteredData}/>
-            
+            <div style = {styles.containerPage}>
+                <EnhancedTable data = {filteredData}/>
+            </div>
+            <Footer/>
         </div>
     )
 }
