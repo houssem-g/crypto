@@ -7,7 +7,7 @@ python --version
 cd backend
 python -m venv antenv
 source antenv/bin/activate
-
+pip install -r requirements.txt
 cd getData
 ls
-exec python manage.py runserver
+exec python manage.py runserver 
