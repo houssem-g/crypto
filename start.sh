@@ -10,4 +10,5 @@ source antenv/bin/activate
 pip install -r requirements.txt
 cd getData
 ls
+python manage.py migrate
 exec python manage.py runserver 
