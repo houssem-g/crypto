@@ -61,5 +61,3 @@ jobs:
           app-name: 'crypto-tracking'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_6991E688680146CBA6FDFB897D2DE8E1 }}
-      - name: CmdLine@2
-        id: 'test message'
