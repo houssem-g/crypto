@@ -30,6 +30,9 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
         
+      - name: Run migrate for django
+        run: python backend/getData/manage.py migrate
+        
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
       
       - name: Upload artifact for deployment jobs
@@ -61,10 +64,3 @@ jobs:
           app-name: 'crypto-tracking'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_6991E688680146CBA6FDFB897D2DE8E1 }}
-      - name: CmdLine@2
-        id: 'test message'
-        shell:
-            script: |
-              echo Write your commands here
-              dir
-              echo Hello world
