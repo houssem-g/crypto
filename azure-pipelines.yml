@@ -4,26 +4,26 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/python
 
 trigger:
-- master
-
+  - azure-pipelines-django
+  
 variables:
   # Azure Resource Manager connection created during pipeline creation
   azureServiceConnectionId: 'b516a60a-ad90-4ec2-969e-2c174a9b800c'
 
   # Web app name
-  webAppName: 'instStopRes01'
+  webAppName: 'crypto-tracking'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
 
   # Environment name
-  environmentName: 'dev'
+  environmentName: 'crypto-tracking'
 
   # Project root folder. Point to the folder containing manage.py file.
   projectRoot: $(System.DefaultWorkingDirectory)
 
-  # Python version: 3.7
-  pythonVersion: '3.7'
+  # Python version: 3.8
+  pythonVersion: '3.8'
 
 stages:
 - stage: Build
@@ -37,28 +37,29 @@ stages:
       inputs:
         versionSpec: '$(pythonVersion)'
       displayName: 'Use Python $(pythonVersion)'
+
     - script: |
         cd backend
         python -m venv antenv
         source antenv/bin/activate
         python -m pip install --upgrade pip
+        pip install setup
         pip install -r requirements.txt
       workingDirectory: $(projectRoot)
       displayName: "Install requirements"
+
     - task: ArchiveFiles@2
+      displayName: 'Archive files'
       inputs:
-        rootFolderOrFile: '$(Build.SourcesDirectory)'
+        rootFolderOrFile: '$(projectRoot)'
         includeRootFolder: false
-        archiveType: 'zip'
-        archiveFile: '$(Build.ArtifactStagingDirectory)/Application$(Build.BuildId).zip'
+        archiveType: zip
+        archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
         replaceExistingArchive: true
-        verbose: # (no value); this input is optional
-    - publish: $(Build.ArtifactStagingDirectory)/Application$(Build.BuildId).zip
+
+    - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
       displayName: 'Upload package'
       artifact: drop
-    
-
-
 
 - stage: Deploy
   displayName: 'Deploy Web App'
@@ -73,37 +74,16 @@ stages:
       runOnce:
         deploy:
           steps:
+
           - task: UsePythonVersion@0
             inputs:
               versionSpec: '$(pythonVersion)'
             displayName: 'Use Python version'
-            
-          - task: CmdLine@2
-            inputs:
-              script: |
-                cd $(Pipeline.Workspace)/drop
-                dir
-          # - task: PowerShell@2
-          #   displayName: 'Degug parameters'
-          #   inputs:
-          #     targetType: Inline
-          #     script: |
-          #       Write-Host "$(Build.BuildId)"
-          #       dir "$(System.DefaultWorkingDirectory)"
-          #       dir "$(System.ArtifactsDirectory)"
-          #       dir "$(Pipeline.Workspace)"
-          #       dir "$(System.ArtifactsDirectory)"
+
           - task: AzureWebApp@1
-            displayName: 'Deploy Azure Web App : {{ webAppName }}'
+            displayName: 'Deploy Azure Web App : react-django-app'
             inputs:
               azureSubscription: $(azureServiceConnectionId)
               appName: $(webAppName)
-              package: $(Pipeline.Workspace)/drop/Application$(Build.BuildId).zip
-          - task: CmdLine@2
-            displayName: 'test message'
-            inputs:
-              script: |
-                echo Write your commands here
-                dir
-                echo Hello world
-            
+              package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
+              
