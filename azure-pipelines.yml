@@ -8,7 +8,7 @@ trigger:
   
 variables:
   # Azure Resource Manager connection created during pipeline creation
-  azureServiceConnectionId: '981ada21-7dd2-443e-ab2c-7e06b1941cbe'
+  azureServiceConnectionId: '32975b3c-92a4-4664-8050-223f937b09ce'
 
   # Web app name
   webAppName: 'crypto-tracking'
