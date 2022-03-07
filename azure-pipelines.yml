@@ -11,7 +11,7 @@ variables:
   azureServiceConnectionId: '981ada21-7dd2-443e-ab2c-7e06b1941cbe'
 
   # Web app name
-  webAppName: 'instStopRes01'
+  webAppName: 'crypto-tracking'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
